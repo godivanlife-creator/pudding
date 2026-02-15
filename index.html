@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, 我是布丁 Pudding！</title>
+    <style>
+        body {
+            font-family: '微軟正黑體', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fce7b8;
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            margin: 20px auto;
+            border: 3px solid #ffcc66;
+        }
+
+        h1 { color: #ff6f61; margin-bottom: 10px; }
+        .contact-info {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #d35400;
+            font-size: 1.4em;
+            margin: 20px 0;
+            border: 1px dashed #ffab91;
+        }
+
+        .details { text-align: left; line-height: 1.8; margin: 20px 0; }
+        .tag { background: #ffcc66; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
+
+        .instagram-link {
+            display: block;
+            margin: 20px auto;
+            padding: 15px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+
+        /* --- 狗狗玩球動畫區 --- */
+        .animation-stage {
+            width: 100%;
+            height: 150px;
+            background-color: #e8f5e9;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #c8e6c9;
+            margin-top: 20px;
+        }
+
+        /* 狗狗本體 (SVG) */
+        .dog-sprite {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin-left: -30px;
+            transition: transform 0.3s;
+            animation: dogRunning 0.5s infinite alternate;
+        }
+
+        /* 網球 */
+        .tennis-ball {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 25px;
+            height: 25px;
+            background: #ccff00; /* 網球螢光綠 */
+            border-radius: 50%;
+            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2);
+            animation: ballMove 4s infinite linear;
+        }
+
+        /* 狗狗跑步動畫 */
+        @keyframes dogRunning {
+            from { transform: translateY(0) scale(1.05, 0.95); }
+            to { transform: translateY(-10px) scale(0.95, 1.05); }
+        }
+
+        /* 球左右滾動，並帶動狗狗轉向 */
+        @keyframes ballMove {
+            0% { left: 5%; }
+            50% { left: 85%; }
+            100% { left: 5%; }
+        }
+
+        /* 讓狗狗轉向的小腳本會寫在下方 JS */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🐾 我是布丁 Pudding</h1>
+        
+        <div class="contact-info">
+            📞 撥打主人電話：090817832
+        </div>
+
+        <div class="details">
+            <p><span class="tag">#愛好</span> 最喜歡玩球球了！⚽️</p>
+            <p><span class="tag">#個性</span> 有點膽小，遇到陌生人需要一點時間適應喔。</p>
+            <p><span class="tag">#地雷</span> 很親人，但<strong style="color:red;">不喜歡一直被摸頭</strong>，請摸摸我的背就好。</p>
+        </div>
+
+        <a href="https://www.instagram.com/pudding__0723?igsh=MXIwYTFoOWF0ZmMwcw==" target="_blank" class="instagram-link">
+            看布丁的日常 IG 📸
+        </a>
+
+        <div class="animation-stage">
+            <div id="ball" class="tennis-ball"></div>
+            <div id="dog" class="dog-sprite">
+                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#D7CCC8" d="M410,105.4c-12.8-12.8-33.5-12.8-46.3,0L331,138.1c-16.1-6.1-33.8-9.4-52.2-9.4s-36.1,3.3-52.2,9.4l-32.7-32.7 c-12.8-12.8-33.5-12.8-46.3,0c-12.8,12.8-12.8,33.5,0,46.3l21.6,21.6C153.2,204.9,144,242.4,144,282.9c0,103.1,83.9,187,187,187 s187-83.9,187-187c0-40.5-9.2-78-25.2-109.6l21.6-21.6C527.2,138.9,527.2,118.2,410,105.4z"/>
+                    <circle fill="#3E2723" cx="210" cy="280" r="20"/>
+                    <circle fill="#3E2723" cx="340" cy="280" r="20"/>
+                    <path fill="#EF5350" d="M275,380c-10,0-20-5-25-15l-10-20h70l-10,20C295,375,285,380,275,380z"/>
+                </svg>
+            </div>
+        </div>
+        
+        <p style="font-size: 0.8em; color: #aaa; margin-top: 20px;">
+            GodiVanLife 專屬 NFC 守護網頁
+        </p>
+    </div>
+
+    <script>
+        // 簡單的腳本讓狗狗轉向追球
+        const ball = document.getElementById('ball');
+        const dog = document.getElementById('dog');
+        let lastPos = 0;
+
+        function updateDogDirection() {
+            const currentPos = ball.offsetLeft;
+            if (currentPos > lastPos) {
+                dog.style.transform = "scaleX(-1)"; // 向右看
+            } else {
+                dog.style.transform = "scaleX(1)";  // 向左看
+            }
+            lastPos = currentPos;
+            requestAnimationFrame(updateDogDirection);
+        }
+        updateDogDirection();
+    </script>
+
+</body>
+</html>
