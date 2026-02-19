@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello, 我是布丁 Pudding！</title>
     <style>
+        :root {
+            --pudding-yellow: #fce7b8;
+            --pudding-orange: #ff6f61;
+            --btn-sms: #007aff;
+        }
+
         body {
             font-family: '微軟正黑體', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #fce7b8;
+            background-color: var(--pudding-yellow);
             color: #4a4a4a;
             text-align: center;
         }
@@ -22,19 +28,39 @@
             max-width: 500px;
             margin: 20px auto;
             border: 3px solid #ffcc66;
+            animation: slideUp 0.8s ease-out;
         }
 
-        h1 { color: #ff6f61; margin-bottom: 10px; }
-        .contact-info {
-            background: #fff3e0;
+        h1 { color: var(--pudding-orange); margin-bottom: 10px; }
+        
+        /* 簡訊通知按鈕樣式 */
+        .btn {
+            display: block;
             padding: 15px;
-            border-radius: 10px;
+            margin: 12px 0;
+            border-radius: 30px;
+            text-decoration: none;
             font-weight: bold;
-            color: #d35400;
-            font-size: 1.4em;
-            margin: 20px 0;
-            border: 1px dashed #ffab91;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            box-sizing: border-box;
         }
+
+        .btn-sms {
+            background: var(--btn-sms);
+            color: white;
+            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        .btn-call {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn:active { transform: scale(0.95); }
 
         .details { text-align: left; line-height: 1.8; margin: 20px 0; }
         .tag { background: #ffcc66; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
@@ -50,6 +76,14 @@
             font-weight: bold;
         }
 
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #d35400;
+            font-weight: bold;
+        }
+
         /* --- 狗狗玩球動畫區 --- */
         .animation-stage {
             width: 100%;
@@ -62,7 +96,6 @@
             margin-top: 20px;
         }
 
-        /* 狗狗本體 (SVG) */
         .dog-sprite {
             position: absolute;
             bottom: 10px;
@@ -74,33 +107,33 @@
             animation: dogRunning 0.5s infinite alternate;
         }
 
-        /* 網球 */
         .tennis-ball {
             position: absolute;
             bottom: 20px;
             left: 0;
             width: 25px;
             height: 25px;
-            background: #ccff00; /* 網球螢光綠 */
+            background: #ccff00;
             border-radius: 50%;
             box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2);
             animation: ballMove 4s infinite linear;
         }
 
-        /* 狗狗跑步動畫 */
         @keyframes dogRunning {
             from { transform: translateY(0) scale(1.05, 0.95); }
             to { transform: translateY(-10px) scale(0.95, 1.05); }
         }
 
-        /* 球左右滾動，並帶動狗狗轉向 */
         @keyframes ballMove {
             0% { left: 5%; }
             50% { left: 85%; }
             100% { left: 5%; }
         }
 
-        /* 讓狗狗轉向的小腳本會寫在下方 JS */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -108,9 +141,12 @@
     <div class="container">
         <h1>🐾 我是布丁 Pudding</h1>
         
-        <div class="contact-info">
-            📞 撥打主人電話：090817832
-        </div>
+        <p style="color: #d35400; font-weight: bold;">📍 我迷路了，請幫我通報位置 🥺</p>
+
+        <button class="btn btn-sms" onclick="sendSMSLocation()">✉️ 簡訊通報主人位置</button>
+        <div id="loadingText" class="loading">正在定位中...請稍候</div>
+
+        <a href="tel:0908178322" class="btn btn-call">📞 直接撥打主人電話</a>
 
         <div class="details">
             <p><span class="tag">#愛好</span> 最喜歡玩球球了！⚽️</p>
@@ -140,7 +176,34 @@
     </div>
 
     <script>
-        // 簡單的腳本讓狗狗轉向追球
+        // 1. 定位與簡訊功能
+        function sendSMSLocation() {
+            const loading = document.getElementById('loadingText');
+            loading.style.display = 'block';
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const mapUrl = "https://www.google.com/maps?q=$" + lat + "," + lng;
+                    
+                    const phoneNumber = "0908178322";
+                    const message = encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding！目前位置：" + mapUrl);
+                    
+                    window.location.href = "sms:" + phoneNumber + "?body=" + message;
+                    loading.style.display = 'none';
+                }, (error) => {
+                    loading.style.display = 'none';
+                    alert("無法取得精確定位，將直接開啟簡訊。");
+                    window.location.href = "sms:0908178322?body=" + encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding，請與我聯繫。");
+                }, { enableHighAccuracy: true, timeout: 8000 });
+            } else {
+                alert("您的裝置不支援定位功能。");
+                loading.style.display = 'none';
+            }
+        }
+
+        // 2. 動畫：讓狗狗轉向追球
         const ball = document.getElementById('ball');
         const dog = document.getElementById('dog');
         let lastPos = 0;
@@ -157,6 +220,5 @@
         }
         updateDogDirection();
     </script>
-
 </body>
 </html>
