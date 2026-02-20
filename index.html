@@ -146,7 +146,7 @@
         <button class="btn btn-sms" onclick="sendSMSLocation()">✉️ 簡訊通報主人位置</button>
         <div id="loadingText" class="loading">正在定位中...請稍候</div>
 
-        <a href="tel:0908178322" class="btn btn-call">📞 直接撥打主人電話</a>
+        <a href="tel:0908167832" class="btn btn-call">📞 直接撥打主人電話</a>
 
         <div class="details">
             <p><span class="tag">#愛好</span> 最喜歡玩球球了！⚽️</p>
@@ -187,7 +187,7 @@
                     const lng = position.coords.longitude;
                     const mapUrl = "https://www.google.com/maps?q=$" + lat + "," + lng;
                     
-                    const phoneNumber = "0908178322";
+                    const phoneNumber = "0908167832";
                     const message = encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding！目前位置：" + mapUrl);
                     
                     window.location.href = "sms:" + phoneNumber + "?body=" + message;
@@ -195,7 +195,7 @@
                 }, (error) => {
                     loading.style.display = 'none';
                     alert("無法取得精確定位，將直接開啟簡訊。");
-                    window.location.href = "sms:0908178322?body=" + encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding，請與我聯繫。");
+                    window.location.href = "sms:0908167832body=" + encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding，請與我聯繫。");
                 }, { enableHighAccuracy: true, timeout: 8000 });
             } else {
                 alert("您的裝置不支援定位功能。");
