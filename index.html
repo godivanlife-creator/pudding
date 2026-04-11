@@ -1,224 +1,389 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, 我是布丁 Pudding！</title>
-    <style>
-        :root {
-            --pudding-yellow: #fce7b8;
-            --pudding-orange: #ff6f61;
-            --btn-sms: #007aff;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>布丁 Pudding 🐾</title>
 
-        body {
-            font-family: '微軟正黑體', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--pudding-yellow);
-            color: #4a4a4a;
-            text-align: center;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 
-        .container {
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 500px;
-            margin: 20px auto;
-            border: 3px solid #ffcc66;
-            animation: slideUp 0.8s ease-out;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        h1 { color: var(--pudding-orange); margin-bottom: 10px; }
-        
-        /* 簡訊通知按鈕樣式 */
-        .btn {
-            display: block;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-            box-sizing: border-box;
-        }
+:root{
+  --cream:#fdf8ee;
+  --warm:#f5e8c8;
+  --sand:#c8a860;
+  --dark:#1a1200;
+  --accent:#c89010;
+  --accent2:#e8b030;
+}
 
-        .btn-sms {
-            background: var(--btn-sms);
-            color: white;
-            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.3);
-        }
+body{
+  background:var(--cream);
+  font-family:'DM Sans','Noto Sans JP',sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
 
-        .btn-call {
-            background: #4CAF50;
-            color: white;
-        }
+/* ─── 語言列 ─── */
+.lang-bar{
+  position:fixed;
+  top:14px;
+  right:14px;
+  display:flex;
+  gap:6px;
+  z-index:100;
+}
+.lang-btn{
+  padding:6px 12px;
+  border-radius:99px;
+  border:none;
+  background:rgba(0,0,0,0.35);
+  color:#fff;
+  cursor:pointer;
+  font-size:0.8rem;
+  backdrop-filter:blur(6px);
+  transition:background 0.2s,color 0.2s;
+}
+.lang-btn.active{
+  background:#fff;
+  color:var(--accent);
+  font-weight:600;
+}
 
-        .btn:active { transform: scale(0.95); }
+/* ─── HERO ─── */
+.hero{
+  width:100%;
+  text-align:center;
+  padding:60px 20px 28px;
+  background:linear-gradient(160deg,#5a3a00,#a07010,#c89010,#e8b030);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"⚽️";
+  position:absolute;
+  font-size:150px;
+  opacity:0.07;
+  left:-20px;
+  bottom:-20px;
+  transform:rotate(-10deg);
+}
+.hero::after{
+  content:"🐾";
+  position:absolute;
+  font-size:110px;
+  opacity:0.06;
+  right:-10px;
+  top:-10px;
+  transform:rotate(20deg);
+}
 
-        .details { text-align: left; line-height: 1.8; margin: 20px 0; }
-        .tag { background: #ffcc66; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
+.avatar-ring{
+  width:124px;
+  height:124px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:auto;
+  border:4px solid rgba(255,255,255,0.45);
+  box-shadow:0 12px 36px rgba(0,0,0,0.3);
+  animation:pop 0.55s cubic-bezier(0.34,1.56,0.64,1);
+}
+.avatar-ring img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+@keyframes pop{
+  from{transform:scale(0.6);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
 
-        .instagram-link {
-            display: block;
-            margin: 20px auto;
-            padding: 15px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-        }
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;
+  margin-top:12px;
+  letter-spacing:0.02em;
+}
+.hero-sub{
+  font-size:0.85rem;
+  opacity:0.7;
+  margin-top:4px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+.hero-warning{
+  margin:16px auto 0;
+  max-width:340px;
+  background:rgba(0,0,0,0.25);
+  border:1.5px solid rgba(255,255,255,0.25);
+  border-radius:12px;
+  padding:12px 16px;
+  font-size:0.88rem;
+  font-weight:600;
+  line-height:1.5;
+  backdrop-filter:blur(4px);
+}
 
-        .loading {
-            display: none;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #d35400;
-            font-weight: bold;
-        }
+/* ─── 卡片區 ─── */
+.card-wrap{
+  max-width:420px;
+  width:100%;
+  margin-top:0;
+  padding:16px 16px 40px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
-        /* --- 狗狗玩球動畫區 --- */
-        .animation-stage {
-            width: 100%;
-            height: 150px;
-            background-color: #e8f5e9;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #c8e6c9;
-            margin-top: 20px;
-        }
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.07);
+}
 
-        .dog-sprite {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            width: 60px;
-            height: 60px;
-            margin-left: -30px;
-            transition: transform 0.3s;
-            animation: dogRunning 0.5s infinite alternate;
-        }
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.info-item{
+  background:var(--cream);
+  border-radius:12px;
+  padding:14px;
+}
+.info-label{
+  font-size:0.7rem;
+  color:var(--sand);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.info-value{
+  font-size:0.95rem;
+  color:var(--dark);
+  font-weight:500;
+  line-height:1.4;
+}
+.personality-card{
+  background:var(--cream);
+  border-radius:12px;
+  padding:14px;
+  margin-top:10px;
+}
 
-        .tennis-ball {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 25px;
-            height: 25px;
-            background: #ccff00;
-            border-radius: 50%;
-            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2);
-            animation: ballMove 4s infinite linear;
-        }
+/* 地雷卡 */
+.alert-card{
+  background:#fff8e8;
+  border:1.5px solid #e8c870;
+  border-radius:12px;
+  padding:14px;
+  margin-top:10px;
+  font-size:0.92rem;
+  color:#7a5000;
+  font-weight:500;
+  line-height:1.5;
+}
 
-        @keyframes dogRunning {
-            from { transform: translateY(0) scale(1.05, 0.95); }
-            to { transform: translateY(-10px) scale(0.95, 1.05); }
-        }
+.btn{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  padding:16px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:500;
+  font-size:1rem;
+  transition:opacity 0.15s,transform 0.15s;
+  cursor:pointer;
+  border:none;
+  width:100%;
+}
+.btn:active{opacity:0.85;transform:scale(0.98);}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-outline{border:2px solid #ddd;color:#333;background:#fff;}
+.btn-ig{
+  background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  color:#fff;
+}
 
-        @keyframes ballMove {
-            0% { left: 5%; }
-            50% { left: 85%; }
-            100% { left: 5%; }
-        }
+.gps-card{
+  background:linear-gradient(135deg,#5a3a00,#a07010);
+  color:#fff;
+  padding:20px;
+  border-radius:18px;
+}
+.gps-desc{
+  font-size:0.88rem;
+  opacity:0.8;
+  margin-bottom:12px;
+}
+.btn-gps{
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  border:1.5px solid rgba(255,255,255,0.3);
+  backdrop-filter:blur(4px);
+}
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+.fade{animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+
 </head>
 <body>
 
-    <div class="container">
-        <h1>🐾 我是布丁 Pudding</h1>
-        
-        <p style="color: #d35400; font-weight: bold;">📍 我迷路了，請幫我通報位置 🥺</p>
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('zh',this)">中</button>
+  <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+  <button class="lang-btn" onclick="setLang('ja',this)">日</button>
+</div>
 
-        <button class="btn btn-sms" onclick="sendSMSLocation()">✉️ 立即定位</button>
-        <div id="loadingText" class="loading">正在定位中...請稍候</div>
+<div class="hero">
+  <div class="avatar-ring">
+    <img src="https://github.com/godivanlife-creator/pudding/blob/main/%E5%B8%83%E4%B8%81.svg?raw=true" alt="布丁 Pudding"
+      onerror="this.parentElement.innerHTML='🐶'">
+  </div>
+  <div class="hero-name">布丁 Pudding</div>
+  <div class="hero-sub">GodiVanLife Pet Tag</div>
+  <div class="hero-warning" id="t-warning"></div>
+</div>
 
-        <a href="tel:0908167832" class="btn btn-call">📞 直接撥打主人電話</a>
+<div class="card-wrap" id="wrap">
 
-        <div class="details">
-            <p><span class="tag">#愛好</span> 最喜歡玩球球了！⚽️</p>
-            <p><span class="tag">#個性</span> 有點膽小，遇到陌生人需要一點時間適應喔。</p>
-            <p><span class="tag">#地雷</span> 很親人，但<strong style="color:red;">不喜歡一直被摸頭</strong>，請摸摸我的背就好。</p>
-        </div>
-
-        <a href="https://www.instagram.com/pudding__0723?igsh=MXIwYTFoOWF0ZmMwcw==" target="_blank" class="instagram-link">
-            看布丁的日常 IG 📸
-        </a>
-
-        <div class="animation-stage">
-            <div id="ball" class="tennis-ball"></div>
-            <div id="dog" class="dog-sprite">
-                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#D7CCC8" d="M410,105.4c-12.8-12.8-33.5-12.8-46.3,0L331,138.1c-16.1-6.1-33.8-9.4-52.2-9.4s-36.1,3.3-52.2,9.4l-32.7-32.7 c-12.8-12.8-33.5-12.8-46.3,0c-12.8,12.8-12.8,33.5,0,46.3l21.6,21.6C153.2,204.9,144,242.4,144,282.9c0,103.1,83.9,187,187,187 s187-83.9,187-187c0-40.5-9.2-78-25.2-109.6l21.6-21.6C527.2,138.9,527.2,118.2,410,105.4z"/>
-                    <circle fill="#3E2723" cx="210" cy="280" r="20"/>
-                    <circle fill="#3E2723" cx="340" cy="280" r="20"/>
-                    <path fill="#EF5350" d="M275,380c-10,0-20-5-25-15l-10-20h70l-10,20C295,375,285,380,275,380z"/>
-                </svg>
-            </div>
-        </div>
-        
-        <p style="font-size: 0.8em; color: #aaa; margin-top: 20px;">
-            GodiVanLife 專屬 NFC 守護網頁
-        </p>
+  <div class="card">
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label" id="t-hobby-label"></div>
+        <div class="info-value" id="t-hobby"></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label" id="t-personality-label"></div>
+        <div class="info-value" id="t-personality"></div>
+      </div>
     </div>
+    <div class="alert-card" id="t-alert"></div>
+  </div>
 
-    <script>
-        // 1. 定位與簡訊功能
-        function sendSMSLocation() {
-            const loading = document.getElementById('loadingText');
-            loading.style.display = 'block';
+<a class="btn btn-primary" href="tel:0908167832" id="t-call"></a>
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    const mapUrl = "https://www.google.com/maps?q=$" + lat + "," + lng;
-                    
-                    const phoneNumber = "0908167832";
-                    const message = encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding！目前位置：" + mapUrl);
-                    
-                    window.location.href = "sms:" + phoneNumber + "?body=" + message;
-                    loading.style.display = 'none';
-                }, (error) => {
-                    loading.style.display = 'none';
-                    alert("無法取得精確定位，將直接開啟簡訊。");
-                    window.location.href = "sms:0908167832body=" + encodeURIComponent("【布丁尋寵通報】我發現了布丁 Pudding，請與我聯繫。");
-                }, { enableHighAccuracy: true, timeout: 8000 });
-            } else {
-                alert("您的裝置不支援定位功能。");
-                loading.style.display = 'none';
-            }
-        }
+  <div class="gps-card">
+    <p class="gps-desc" id="t-gps-desc"></p>
+    <button class="btn btn-gps" id="gps-btn" onclick="sendGPS()"></button>
+  </div>
 
-        // 2. 動畫：讓狗狗轉向追球
-        const ball = document.getElementById('ball');
-        const dog = document.getElementById('dog');
-        let lastPos = 0;
+<a class="btn btn-ig" href="https://www.instagram.com/pudding__0723?igsh=MXIwYTFoOWF0ZmMwcw==" target="_blank" id="t-ig"></a>
 
-        function updateDogDirection() {
-            const currentPos = ball.offsetLeft;
-            if (currentPos > lastPos) {
-                dog.style.transform = "scaleX(-1)"; // 向右看
-            } else {
-                dog.style.transform = "scaleX(1)";  // 向左看
-            }
-            lastPos = currentPos;
-            requestAnimationFrame(updateDogDirection);
-        }
-        updateDogDirection();
-    </script>
+</div>
+
+<script>
+const i18n={
+  zh:{
+    warning:"📍 布丁迷路了！請幫忙回報位置 🥺",
+    hobbyLabel:"⚽️ 最愛",
+    hobby:"玩球球！",
+    personalityLabel:"🐾 個性",
+    personality:"有點膽小，需要時間暖身",
+    alert:"⚠️ 地雷：很親人，但不喜歡一直被摸頭，請摸摸背就好！",
+    call:"📞 聯絡布丁的主人",
+    gpsDesc:"發現布丁了嗎？請點擊下方按鈕回報位置給主人",
+    gpsBtn:"📍 立即回報位置",
+    gpsLoading:"定位中...",
+    gpsError:"定位失敗，請重試",
+    ig:"📸 看布丁的 IG 日常"
+  },
+  en:{
+    warning:"📍 Pudding is lost! Please help report the location 🥺",
+    hobbyLabel:"⚽️ Favorite",
+    hobby:"Playing ball!",
+    personalityLabel:"🐾 Personality",
+    personality:"A bit shy, needs time to warm up",
+    alert:"⚠️ Note: Friendly but dislikes being patted on the head repeatedly — please pet the back instead!",
+    call:"📞 Call Pudding's Owner",
+    gpsDesc:"Found Pudding? Please send your location to the owner",
+    gpsBtn:"📍 Send Location Now",
+    gpsLoading:"Getting location...",
+    gpsError:"Location failed, please retry",
+    ig:"📸 Pudding on Instagram"
+  },
+  ja:{
+    warning:"📍 プディングが迷子になりました！位置情報を送ってください 🥺",
+    hobbyLabel:"⚽️ 大好き",
+    hobby:"ボール遊び！",
+    personalityLabel:"🐾 性格",
+    personality:"少し臆病、慣れるまで時間が必要",
+    alert:"⚠️ 注意：人懐っこいですが、頭を何度も触られるのは苦手です。背中を撫でてあげてください！",
+    call:"📞 飼い主に電話",
+    gpsDesc:"プディングを見つけたら、位置情報を飼い主に送ってください",
+    gpsBtn:"📍 今すぐ位置を送る",
+    gpsLoading:"取得中...",
+    gpsError:"失敗しました",
+    ig:"📸 インスタグラムを見る"
+  }
+};
+
+let lang='zh';
+
+function applyLang(){
+  const t=i18n[lang];
+  document.getElementById("t-warning").innerText=t.warning;
+  document.getElementById("t-hobby-label").innerText=t.hobbyLabel;
+  document.getElementById("t-hobby").innerText=t.hobby;
+  document.getElementById("t-personality-label").innerText=t.personalityLabel;
+  document.getElementById("t-personality").innerText=t.personality;
+  document.getElementById("t-alert").innerText=t.alert;
+  document.getElementById("t-call").innerText=t.call;
+  document.getElementById("t-gps-desc").innerText=t.gpsDesc;
+  document.getElementById("gps-btn").innerText=t.gpsBtn;
+  document.getElementById("t-ig").innerText=t.ig;
+}
+
+function setLang(l,el){
+  lang=l;
+  applyLang();
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const wrap=document.getElementById("wrap");
+  wrap.classList.remove("fade");
+  void wrap.offsetWidth;
+  wrap.classList.add("fade");
+}
+
+applyLang();
+
+function sendGPS(){
+  const btn=document.getElementById("gps-btn");
+  const t=i18n[lang];
+  btn.innerText=t.gpsLoading;
+  btn.disabled=true;
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(6);
+    const lng=pos.coords.longitude.toFixed(6);
+    const url=`https://maps.google.com/?q=${lat},${lng}`;
+    const msg=encodeURIComponent("🐾 發現布丁 Pudding！目前位置："+url);
+    window.location.href=`sms:0908167832?body=${msg}`;
+    resetGPS();
+  },()=>{
+    alert(t.gpsError);
+    resetGPS();
+  },{enableHighAccuracy:true,timeout:8000,maximumAge:0});
+}
+
+function resetGPS(){
+  const btn=document.getElementById("gps-btn");
+  btn.disabled=false;
+  btn.innerText=i18n[lang].gpsBtn;
+}
+</script>
+
 </body>
 </html>
